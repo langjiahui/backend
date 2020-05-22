@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <classPathEntry location="D:/java/mysql-connector-java-8.0.16.jar"/>
+
+    <context id="context1">
+
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 配置生成pojo的序列化的插件，mybatis支持很多插件，这些插件都在 org.mybatis.generator.plugins包下  -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <!-- 配置生成pojo的toString()方法的插件，mybatis支持很多插件，这些插件都在 org.mybatis.generator.plugins包下 -->
+        <!--<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />-->
+
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="false"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/backend?serverTimezone=UTC" userId="root" password="root"/>
+
+        <javaModelGenerator targetPackage="com.myjava.service.domain" targetProject="src/main/java">
+            <!-- 是否对model添加 构造函数 -->
+            <property name="constructorBased" value="false"/>
+
+            <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+            <property name="enableSubPackages" value="false"/>
+
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="immutable" value="true"/>
+
+            <!-- 给Model添加一个父类 -->
+            <!--<property name="rootClass" value="com.foo.louis.Hello"/>-->
+
+            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
+            <property name="trimStrings" value="true"/>
+
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="com.myjava.service.dao" targetProject="src/main/java"/>
+        <javaClientGenerator targetPackage="com.myjava.service.dao" targetProject="src/main/java" type="XMLMAPPER"/>
+
+        <table schema="" tableName="my_user" enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+        </table>
+    </context>
+</generatorConfiguration>

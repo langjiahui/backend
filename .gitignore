@@ -1,0 +1,10 @@
+# Project exclude paths
+/rest/target/
+/service/target/
+.idea/
+backend.iml
+log/
+rest/rest.iml
+rest/src/main/resources/static/
+rest/src/main/resources/templates/
+service/service.iml

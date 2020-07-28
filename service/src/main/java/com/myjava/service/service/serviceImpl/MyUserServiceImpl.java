@@ -16,17 +16,6 @@ public class MyUserServiceImpl implements IMyUserService {
     MyUserMapper myUserMapper;
     
     @Override
-    public MyUser getUser(String userName,String passWord) {
-        MyUserExample example = new MyUserExample();
-        example.createCriteria().andUsernameEqualTo(userName).andPasswordEqualTo(passWord);
-        List<MyUser> list = myUserMapper.selectByExample(example);
-        if(list.isEmpty()){
-            return null;
-        }
-        return list.get(0);
-    }
-
-    @Override
     public MyUser getUser(String userName) {
         MyUserExample example = new MyUserExample();
         example.createCriteria().andUsernameEqualTo(userName);

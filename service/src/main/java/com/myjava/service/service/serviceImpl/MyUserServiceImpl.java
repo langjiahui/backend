@@ -25,4 +25,20 @@ public class MyUserServiceImpl implements IMyUserService {
         }
         return list.get(0);
     }
+
+    @Override
+    public MyUser getUser(String userName) {
+        MyUserExample example = new MyUserExample();
+        example.createCriteria().andUsernameEqualTo(userName);
+        List<MyUser> list = myUserMapper.selectByExample(example);
+        if(list.isEmpty()){
+            return null;
+        }
+        return list.get(0);
+    }
+
+    @Override
+    public boolean checkUser(String loginName, String passWord) {
+        return true;
+    }
 }

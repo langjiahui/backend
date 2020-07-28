@@ -1,5 +1,8 @@
 package com.myjava.rest.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.myjava.rest.utils.JwtUtil;
+import com.myjava.rest.vo.AjaxResult;
 import com.myjava.rest.vo.RespBean;
 import com.myjava.service.domain.MyUser;
 import com.myjava.service.service.IMyUserService;
@@ -7,8 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -23,17 +29,31 @@ public class UserManageController {
     }
 
     @PostMapping("/login")
-    public RespBean login(@RequestBody Map<String, Object> info){
-        String password = (String) info.get("password");
-        String username = (String) info.get("username");
-        MyUser user =  myUserService.getUser(username,password);
-        RespBean respBean = new RespBean();
-        if(user!=null){
-            respBean.setMsg("登入成功!");
-        }else{
-            respBean.setMsg("登入失败");
+    public AjaxResult login(@RequestBody Map<String, String> map) {
+        String loginName = map.get("loginName");
+        String passWord = map.get("passWord");
+        //身份验证
+        boolean isSuccess = myUserService.checkUser(loginName, passWord);
+        if (isSuccess) {
+            //模拟数据库查询
+            MyUser user = myUserService.getUser(loginName);
+            if (user != null) {
+                //返回token
+                String token = JwtUtil.sign(loginName, passWord);
+                if (token != null) {
+                    return AjaxResult.success("成功", token);
+                }
+            }
         }
-        return  respBean;
+        return AjaxResult.fail();
     }
+
+    @PostMapping("/getUser")
+    public AjaxResult getUserInfo(HttpServletRequest request, @RequestBody Map<String, String> map) {
+        String loginName = map.get("loginName");
+        MyUser user = myUserService.getUser(loginName);
+        return AjaxResult.success("成功", JSONObject.toJSONString(user));
+    }
+
 
 }

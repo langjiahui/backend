@@ -1,7 +1,7 @@
-package com.myjava.service.dao;
+package com.myjava.dao;
 
-import com.myjava.service.domain.MyUser;
-import com.myjava.service.domain.MyUserExample;
+import com.myjava.domain.MyUser;
+import com.myjava.domain.MyUserExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;

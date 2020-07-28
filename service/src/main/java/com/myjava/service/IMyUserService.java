@@ -1,6 +1,6 @@
-package com.myjava.service.service;
+package com.myjava.service;
 
-import com.myjava.service.domain.MyUser;
+import com.myjava.domain.MyUser;
 
 public interface IMyUserService {
 

@@ -1,4 +1,4 @@
-package com.myjava.service.domain;
+package com.myjava.domain;
 
 import java.util.ArrayList;
 import java.util.List;

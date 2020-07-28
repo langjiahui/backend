@@ -1,9 +1,9 @@
-package com.myjava.service.service.serviceImpl;
+package com.myjava.service.serviceImpl;
 
-import com.myjava.service.dao.MyUserMapper;
-import com.myjava.service.domain.MyUser;
-import com.myjava.service.domain.MyUserExample;
-import com.myjava.service.service.IMyUserService;
+import com.myjava.dao.MyUserMapper;
+import com.myjava.domain.MyUser;
+import com.myjava.domain.MyUserExample;
+import com.myjava.service.IMyUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,12 @@
 package com.myjava.rest.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.myjava.rest.conf.NoLoginRequestCfg;
 import com.myjava.rest.utils.JwtUtil;
 import com.myjava.rest.vo.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 
 import javax.servlet.Filter;
@@ -30,6 +32,9 @@ import java.io.PrintWriter;
 @Slf4j
 public class AuthRequestFilter implements Filter {
 
+    @Autowired
+    private NoLoginRequestCfg noLoginRequestCfg;
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         log.info("--------------- ==>AuthRequestFilter init method: init");
@@ -43,15 +48,17 @@ public class AuthRequestFilter implements Filter {
         String token = requestContext.getHeader("token");
         log.info(url+"|"+token);
 
-        if(StringUtils.isBlank(token)){
-            returnRes(response,AjaxResult.fail("token empty!"),url);
-            return;
-        }
+        if (!noLoginRequestCfg.check(url)) {
+            if(StringUtils.isBlank(token)){
+                returnRes(response,AjaxResult.fail("token empty!"),url);
+                return;
+            }
 
-        boolean verity = JwtUtil.verity(token);
-        if (!verity) {
-            returnRes(response,AjaxResult.fail("verity fail!"),url);
-            return;
+            boolean verity = JwtUtil.verity(token);
+            if (!verity) {
+                returnRes(response,AjaxResult.fail("verity fail!"),url);
+                return;
+            }
         }
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");

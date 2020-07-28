@@ -7,8 +7,8 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@MapperScan(basePackages = "com.myjava.service.dao")
-@ComponentScan(basePackages= {"com.myjava.service","com.myjava.rest.controller"})
+@MapperScan(basePackages = "com.myjava.dao")
+@ComponentScan(basePackages= {"com.myjava.service","com.myjava.rest"})
 @ServletComponentScan(basePackages="com.myjava.rest.filter")
 public class RestApplication {
 
